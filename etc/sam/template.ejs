@@ -5,9 +5,9 @@ Resources:
   Audit:
     Type: 'AWS::Serverless::Function'
     Properties:
-      Handler: core.lambda_handler
-      Runtime: python2.7
-      CodeUri: .
+      Handler: index.lambda
+      Runtime: nodejs8.10
+      CodeUri: <%- buildPath %>
       Description: >-
         metrics-audit
       MemorySize: 512
@@ -21,19 +21,24 @@ Resources:
                 - rds:DownloadDBLogFilePortion
                 - rds:DownloadCompleteLogFile
                 - rds:DescribeDBInstances
-              Resource: '{{ DBInstanceArn }}'
+              Resource: <%- DB_INSTANCE_ARN %>
         - Version: '2012-10-17'
           Statement:
             - Effect: Allow
               Action:
                 - glacier:UploadArchive
-              Resource: '{{ VaultInstanceArn }}'
+                - glacier:InitiateMultipartUpload
+                - glacier:CompleteMultipartUpload
+                - glacier:UploadMultipartPart
+              Resource: <%- GLACIER_VAULT_ARN %>
       Events:
         Schedule:
           Type: Schedule
           Properties:
-            Schedule: rate(24 hours)
+            Schedule: rate(1 hours)
       Environment:
         Variables:
-          DB_INSTANCE_IDENTIFIER: {{ DB_INSTANCE_IDENTIFIER }}
-          GLACIER_VAULT_NAME: {{ GLACIER_VAULT_NAME }}
+          DB_INSTANCE_IDENTIFIER: <%- DB_INSTANCE_IDENTIFIER %>
+          GLACIER_VAULT_NAME: <%- GLACIER_VAULT_NAME %>
+          AD_AWS_REGION: <%- AD_AWS_REGION %>
+          DEBUG: '@agilemd/pg-audit-lambda*'

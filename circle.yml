@@ -1,0 +1,15 @@
+general:
+  artifacts:
+    - "coverage"
+
+dependencies:
+  pre:
+    - 'echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > ~/.npmrc'
+
+machine:
+  node:
+    version: 8
+
+test:
+  post:
+    - npm run coverage-circleci

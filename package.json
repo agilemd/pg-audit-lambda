@@ -1,0 +1,47 @@
+{
+  "private": true,
+  "name": "pg-audit-lambda",
+  "description": "",
+  "version": "0.0.0",
+  "license": "UNLICENSED",
+  "author": "AgileMD <hello@agilemd.com>",
+  "contributors": [
+    {
+      "name": "Zack Liston",
+      "email": "zack@agilemd.com",
+      "url": "https://github.com/zackliston"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/agilemd/pg-audit-lambda"
+  },
+  "engines": {
+    "node": "8.x"
+  },
+  "dependencies": {
+    "@agilemd/config": "4.2.0",
+    "aws-sdk": "2.248.1",
+    "aws4": "1.7.0",
+    "boom": "7.2.0",
+    "debug": "3.1.0",
+    "ms": "2.1.1",
+    "p-series": "1.1.0",
+    "request": "2.87.0"
+  },
+  "devDependencies": {
+    "ejs": "2.6.1",
+    "eslint": "4.19.1",
+    "eslint-config-airbnb": "16.1.0",
+    "eslint-plugin-import": "2.12.0",
+    "mocha": "5.2.0",
+    "mocha-eslint": "4.1.0",
+    "mocha-junit-reporter": "1.17.0",
+    "sequelize-cli": "4.0.0"
+  },
+  "scripts": {
+    "build": "./tools/build.sh",
+    "deploy": "./tools/deploy.sh",
+    "test": "mocha ./test/unit/$DIR --recursive"
+  }
+}
