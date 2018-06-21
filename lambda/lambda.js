@@ -47,8 +47,8 @@ function lambda(event, context, callback) {
   const lastWritten = Date.now() - ms('61m');
 
   return rds.describeLogFiles({ lastWritten })
-  .then(({ DescribeDBLogFiles }) => DescribeDBLogFiles.slice(-1))
-  .then(({ DescribeDBLogFiles }) =>
+  .then(({ DescribeDBLogFiles }) => DescribeDBLogFiles.slice(0, -1))
+  .then(DescribeDBLogFiles =>
     DescribeDBLogFiles.map(({ LogFileName }) => LogFileName)
     .filter(filename => !filename.endsWith('gz'))
   )
